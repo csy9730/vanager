@@ -26,4 +26,6 @@ pnpm-debug.log*
 __pycached__/
 tmp/
 bak/
-*.pwdb.sqlite
+*.sqlite
+migrations/
+package-lock.json
