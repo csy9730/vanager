@@ -24,6 +24,11 @@ const routes = [
     component: () => import('../views/DemoView.vue')
   },
   {
+    path: '/longquery',
+    name: 'longquery',
+    component: () => import('../views/LongQueryView.vue')
+  },
+  {
     path: '/chart',
     name: 'chart',
     component: () => import('../views/LineView.vue')
