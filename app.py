@@ -1,4 +1,5 @@
 from typing import List, Dict
+import time
 import os
 from flask import request, redirect, render_template, make_response
 from flask import Flask, render_template, jsonify
@@ -175,6 +176,87 @@ def todo_editRecord():
         "err": 200
     })
 
+class FooRunner:
+    def __init__(self):
+        self.is_running = None
+        self.data = []
+        self._idx = -1
+        self.stop_at = 999999999999999
+        self.begin_at = 999999999999999
+
+    def start(self):
+        tm = int(time.time())
+        self.data = [{"data":i, "timestamp": tm + i} for i in range(30)]
+        self.is_running = True
+        self.begin_at = tm
+
+    def stop(self):
+        self.is_running = False
+        self.stop_at = int(time.time())
+
+    def getState(self, idx:int, tm:int):
+        i = 0
+        for i, d in enumerate(self.data[idx:]):
+            if tm < d["timestamp"]:
+                break
+        idx2 = idx + i + 1
+        print(idx, idx2, i, self.data)
+        return self.data[idx:idx2]
+
+    # def getRecentState(self):
+    #     self._idx += 1
+    #     return self._idx, self.data[self._idx]
+    
+    # def getRunning(self):
+    #     return self.is_running
+    
+    def getRunning(self, ts:int):
+        if ts < self.begin_at:
+            # self.stop_at:
+            return None
+        elif ts < self.stop_at:
+            # return self.is_running
+            return True
+        else:
+            return False
+
+foo = FooRunner()
+
+@app.route('/api/tmp_run/start', methods=['POST'])
+def tmp_start():
+    tm = int(time.time())
+    foo.start()
+    return jsonify({"errCode": 0, "timestamp": tm})
+
+@app.route('/api/tmp_run/stop', methods=['POST'])
+def tmp_stop():
+    foo.stop()
+    tm = int(time.time())
+    return jsonify({"errCode": 0, "timestamp": tm})
+
+@app.route('/api/tmp_run/recent_state')
+def tmp_query_recent():
+    idx, val = foo.getRecentState()
+    dct = {"state": val}
+    return jsonify(dct)
+
+@app.route('/api/tmp_run/get_state')
+def tmp_query():
+    tm = int(time.time())
+    timestamp = int(request.args.get("timestamp", tm))
+    timestamp = min([timestamp, tm])
+    idx = int(request.args.get("offset", 0))
+    dct = {"state": foo.getState(idx, timestamp), 'offset': idx, "timestamp": timestamp}
+    return jsonify(dct)
+
+@app.route('/api/tmp_run/is_running')
+def train_isrunning():
+    tm = int(time.time())
+    timestamp = int(request.args.get("timestamp", tm))
+    timestamp = min([timestamp, tm])
+    # new Date(Math.floor(Date.now()/100)*100)
+    dct = {"is_running": foo.getRunning(timestamp), "timestamp": timestamp}
+    return jsonify(dct)
 
 # 主页面
 @app.route('/')
