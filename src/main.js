@@ -12,7 +12,8 @@ import Mock from './mock'
 
 import Axios from 'axios';
 if (process.env.NODE_ENV !== 'production'){
-    Mock.start();
+    // Mock.start();
+    Axios.defaults.baseURL = "http://localhost:5000/";
 }else{
   if (router.mode == 'history'){
     Axios.defaults.baseURL = "http://localhost:5000/";

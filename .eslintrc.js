@@ -14,7 +14,8 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'vue/no-mutating-props':0,
-    "no-unused-vars": 'off'
+    "no-unused-vars": 'off',
+    'vue/no-textarea-mustache': 'off'
   },
   overrides: [
     {

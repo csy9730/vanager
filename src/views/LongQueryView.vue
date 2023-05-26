@@ -4,8 +4,8 @@
 
     <button @click="reverseMessage">Reverse Message</button>
     <button @click="fetchData">fetch Message once</button>
-    <button @click="startFetch">start fetch Message</button>
-    <button @click="stopFetch">stop fetch Message</button>
+    <button @click="startFetch" :disabled="is_running">start fetch Message</button>
+    <button @click="stopFetch" :disabled="!is_running">stop fetch Message</button>
 
   </div>
 </template>
@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       message: 'Hello World!',
+      is_running: false,
       timerId: null
     };
   },
@@ -38,9 +39,11 @@ export default {
       this.timerId = window.setInterval(()=>{
             this.fetchData();
         }, 3000);
+      this.is_running = true;
     },
     stopFetch() {
       window.clearInterval(this.timerId);
+      this.is_running = false;
     }
   },
   computed: {
