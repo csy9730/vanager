@@ -183,19 +183,19 @@ class FooRunner:
         self.data = []
         self._idx = -1
         self.stop_at = 999999999999999
-        self.begin_at = 999999999999999
+        self.start_at = 999999999999999
 
     def start(self):
         tm = int(time.time())
         self.data = [{"data":i, "timestamp": tm + i} for i in range(15)]
         self.is_running = True
-        self.begin_at = tm
+        self.start_at = tm
         self.stop_at = tm + 20
 
     def stop(self):
         self.is_running = False
         self.stop_at = int(time.time())
-        # self.begin_at = 999999999999999
+        # self.start_at = 999999999999999
 
     def getState(self, idx:int, tm:int):
         i = 0
@@ -214,7 +214,7 @@ class FooRunner:
     #     return self.is_running
     
     def getRunning(self, ts:int):
-        if ts < self.begin_at:
+        if ts < self.start_at:
             # self.stop_at:
             return None
         elif ts < self.stop_at:
@@ -275,21 +275,28 @@ class ZmcRunner:
         self.data = []
         self._idx = -1
         self.stop_at = 999999999999999
-        self.begin_at = 999999999999999
+        self.start_at = 999999999999999
         self.mc = MotionLookahead(is_relative=False)
 
         self.mc.setVelocityParams(V_m=2, A_m=1, A_n=1, S_p=5, velocType=VelocityType.VELOC_SCURVE_J, merge=True)
         self.is_first = True
 
-    def add_cmd(self):
-        tm = int(time.time()) + 0.25
+    def reset_cmd(self):
+        self.mc.reset()
+        self.mc.setVelocityParams(V_m=2, A_m=1, A_n=1, S_p=5, velocType=VelocityType.VELOC_SCURVE_J, merge=True)
+        self.is_first = True
+        
+    def add_cmd(self, pos, is_relative=True, tm=None):
+        if tm is None:
+            tm = int(time.time()) + 0.25
+        
         if self.is_first:
-            self.begin_at = tm      
+            self.start_at = tm      
             self.is_first = False  
             dt = 0
         else:
-            dt = tm - self.begin_at
-        self.mc.append_path(LinearPathPlanner([15, 10], is_relative=True), tm=dt)
+            dt = tm - self.start_at
+        self.mc.append_path(LinearPathPlanner(pos, is_relative=is_relative), tm=dt)
         self.mc.build()
         self.stop_at = tm + self.mc.get_total_period()
         self.is_running = True
@@ -297,19 +304,22 @@ class ZmcRunner:
     # def start(self):
         # self.data = [{"data":i, "timestamp": tm + i} for i in range(15)]
 
-    def stop(self):
+    def stop(self, tm=None):
         # self.is_running = False
-        dt = time.time() + 0.25 - self.begin_at
-        self.mc.move_stop(dt)
+        if tm is None:
+            dt = time.time() + 0.25 - self.start_at
+        else:
+            dt = tm - self.start_at + 0.25
+        self.mc.move_clearstop(dt)
         self.mc.build()
-        self.stop_at = math.ceil(self.mc.get_total_period())
+        self.stop_at = self.start_at + math.ceil(self.mc.get_total_period())
         # int(time.time())
-        # self.begin_at = 999999999999999
+        # self.start_at = 999999999999999
 
     def getState(self, idx:int, tm:int):
         mc = self.mc
         import math
-        dt = tm - self.begin_at
+        dt = tm - self.start_at
         pt = mc.get_total_period()
         pt = min([pt, dt])
         Ts = 0.25
@@ -322,8 +332,8 @@ class ZmcRunner:
             pos = mc.get_postion(t)
             v = mc.get_rate(t)
             tt.append(t)
-            sx.append(pos[0])
-            sy.append(pos[1])
+            sx.append(float(pos[0]))
+            sy.append(float(pos[1]))
             print(i, t, *pos, v)
         idx2 = idx + len(tt)
         print(idx, idx2)
@@ -337,7 +347,7 @@ class ZmcRunner:
     #     return self.is_running
     
     def getRunning(self, ts:int):
-        if ts < self.begin_at:
+        if ts < self.start_at:
             # self.stop_at:
             return None
         elif ts < self.stop_at:
@@ -351,14 +361,37 @@ zmcWrp = ZmcRunner()
 @app.route('/api/zmcrun/start', methods=['POST'])
 def zmc_start():
     tm = int(time.time())
-    zmcWrp.add_cmd()
-    return jsonify({"errCode": 0, "timestamp": tm})
+    
+    timestamp = int(request.json.get("timestamp", tm))
+    is_relative = request.json.get("is_relative", True)
+    print(request.args, request.json)
+    movePos = request.json.get("movePos")
+    # ss2 = movePos.split(',')
+    # pos = [float(s) if s.isdigit() else 0 for s in ss2 ]
+    zmcWrp.add_cmd(movePos, is_relative=is_relative, tm=timestamp)
+    return jsonify({"errCode": 0, "timestamp": tm, "is_relative": is_relative})
 
 @app.route('/api/zmcrun/stop', methods=['POST'])
 def zmc_stop():
     # zmcWrp.stop()
     tm = int(time.time())
+    timestamp = int(request.args.get("timestamp", tm))
+    timestamp = min([timestamp, tm])
+    zmcWrp.stop(timestamp)
     return jsonify({"errCode": 0, "timestamp": tm})
+
+
+@app.route('/api/zmcrun/reset', methods=['POST'])
+def zmc_reset():
+    tm = int(time.time())
+    zmcWrp.reset_cmd()
+    return jsonify({"errCode": 0, "timestamp": tm})
+
+@app.route('/api/zmcrun/eventArr')
+def zmc_event():
+    dct = {"state": zmcWrp.mc.eventArr}
+    print(dct)
+    return jsonify(zmcWrp.mc.eventArr)
 
 @app.route('/api/zmcrun/get_state')
 def zmc_query():
@@ -369,6 +402,7 @@ def zmc_query():
     cnt = zmcWrp.getState(idx, timestamp)
     # next_ofs = idx + len(cnt)
     dct = {"state": cnt, 'offset': idx, 'next_ofs': cnt["next_ofs"], "timestamp": timestamp}
+    print(dct)
     return jsonify(dct)
 
 @app.route('/api/zmcrun/is_running')
@@ -377,7 +411,7 @@ def zmc_isrunning():
     timestamp = int(request.args.get("timestamp", tm))
     timestamp = min([timestamp, tm])
     # new Date(Math.floor(Date.now()/100)*100)
-    dct = {"is_running": zmcWrp.getRunning(timestamp), "timestamp": timestamp, 'tmp_ts': foo.stop_at}
+    dct = {"is_running": zmcWrp.getRunning(timestamp), "timestamp": timestamp, 'stop_at': zmcWrp.stop_at, 'start_at': zmcWrp.start_at}
     return jsonify(dct)
 
 # 主页面
