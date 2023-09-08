@@ -298,7 +298,7 @@ class ZmcRunner:
             dt = tm - self.start_at
         self.mc.append_path(LinearPathPlanner(pos, is_relative=is_relative), tm=dt)
         self.mc.build()
-        self.stop_at = tm + self.mc.get_total_period()
+        self.stop_at = self.start_at + self.mc.get_total_period()
         self.is_running = True
 
     # def start(self):
@@ -325,7 +325,7 @@ class ZmcRunner:
         Ts = 0.25
         N = math.ceil(pt/Ts)
 
-        tt, sx, sy = [], [], []
+        tt, sx, sy, vv = [], [], [], []
         
         for i in range(idx, N):
             t = i*Ts
@@ -334,10 +334,11 @@ class ZmcRunner:
             tt.append(t)
             sx.append(float(pos[0]))
             sy.append(float(pos[1]))
+            vv.append(v)
             print(i, t, *pos, v)
         idx2 = idx + len(tt)
         print(idx, idx2)
-        return {'tt': tt, 'sx': sx, 'sy': sy, 'next_ofs': idx2}
+        return {'tt': tt, 'sx': sx, 'sy': sy, 'vv': vv, 'next_ofs': idx2}
 
     # def getRecentState(self):
     #     self._idx += 1

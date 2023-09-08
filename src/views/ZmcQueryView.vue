@@ -40,6 +40,7 @@ export default {
       tt: [],
       xx: [],
       yy: [],
+      vv: [],
       timerId: null
     };
   },
@@ -63,7 +64,9 @@ export default {
       this.tt = []
       this.xx = []
       this.yy = []
+      this.vv = []
       this.stopQuerying()
+      this.updateChart()
     },
     reverseMessage() {
       this.message = this.message.split('').reverse().join('');
@@ -82,6 +85,7 @@ export default {
           this.xx.push(res.data.state.sx[i])
           this.yy.push(res.data.state.sy[i])
           this.tt.push(res.data.state.tt[i])
+          this.vv.push(res.data.state.vv[i])
         // data.concat(res.data.state.sx)
         }
         console.log(this.xx, this.tt)
@@ -192,6 +196,11 @@ export default {
           name: 'ypos',
           type: 'line',
           data: this.yy
+        },
+        {
+          name: 'vpos',
+          type: 'line',
+          data: this.vv
         }]
       }
       this.chart.setOption(opt)
