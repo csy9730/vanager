@@ -90,7 +90,7 @@ export default {
         }
         console.log(this.xx, this.tt)
         if (data.length)
-          this.content += ',' + data.join(',')
+          this.content += '\n' + data.join(',')
 
         this.updateChart();
 
