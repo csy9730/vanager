@@ -6,6 +6,7 @@
       <router-link to="/chart">Chart </router-link> |
       <router-link to="/longquery">LongQuery </router-link> |
       <router-link to="/zmcquery">ZmcQuery </router-link> |
+      <router-link to="/zmot">ZmotQuery </router-link> |
       <router-link to="/todo">Todo </router-link>
     </nav>
     <img alt="Vue logo" src="../assets/logo.png">

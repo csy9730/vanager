@@ -39,6 +39,11 @@ const routes = [
     component: () => import('../views/ZmcQueryView.vue')
   },
   {
+    path: '/zmot',
+    name: 'zmot',
+    component: () => import('../views/ZmotQueryView.vue')
+  },
+  {
     path: '/chart',
     name: 'chart',
     component: () => import('../views/LineView.vue')
