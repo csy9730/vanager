@@ -113,6 +113,18 @@ src\views\ZmcQueryView.vue
 - content 对应文件内容
 - lines 对应行列表
 - data 对应数据
+- frame 
+
+```
+content  == stdout 
+lines		info state
+data		motData stream
+```
+
+
+- zmc
+- zmot
+- zapi
 
 #### 流控制2
 - /api/zmcrun/start       /zmcjson
