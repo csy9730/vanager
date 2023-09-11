@@ -21,11 +21,20 @@
     <br>
     <div>
     <button @click="moveStop" :disabled="!is_running">stop </button>
+    <button @click="movePause" :disabled="!is_running">pause </button>
+    <button @click="moveResume" :disabled="!is_running">resume </button>
+    <button @click="moveClear" :disabled="!is_running">clear </button>
     <button @click="clearData">clear Message</button>
     <button @click="resetMq">reset Motion</button>
     </div>
     <br>
-    <div><textarea class="content"  readonly>{{ content }}</textarea></div>
+    <!-- <h4 v-bind:title="currentPosStr"></h4> -->
+    <h4  readonly>pos= {{ currentPos }}</h4>
+    <br>
+    <div>
+      <textarea class="content"  readonly>{{ content }}</textarea>
+      <textarea class="txtHistory"  readonly>{{ txtHistory }}</textarea>
+    </div>
     <br>
     <div class="chart-container">
       <div :id="id" :style="{height:height,width:width}"> </div>
@@ -46,6 +55,7 @@ export default {
       is_running: false,
       is_querying: false,
       content: '',
+      txtHistory: '', 
       offset: 0,
       is_relative: true,
       movePos: "10,15",
@@ -55,12 +65,12 @@ export default {
       width: "100%",
       height: "600px",
       chart: null,
+      currentPos: [0, 0],
       tt: [],
       xx: [],
       yy: [],
       ss: [],
       vv: [],
-      yBak:0,
       timerId: null
     };
   },
@@ -77,13 +87,17 @@ export default {
       return ss3
     },
     zmovePosStr (){
-      return this.movePos
+      return this.zmovePos
+    },
+    currentPosStr (){
+      return this.currentPos.join(',')
     }
   },
   methods: {
     clearData(){
       this.offset = 0
       this.content = ''
+      this.txtHistory = ''
       this.tt = []
       this.xx = []
       this.yy = []
@@ -110,11 +124,13 @@ export default {
         for (let i=0; i<data.length; i++){
           let N = data[i].length
           this.xx.push(data[i][1])
+          this.currentPos[0] = data[i][1]
           if (N>=5){
             this.yy.push(data[i][2])
-            this.yBak = data[i][2]
-          }else 
-            this.yy.push(this.yBak)
+            this.currentPos[1] = data[i][2]
+          }else {
+            this.yy.push(this.currentPos[1])
+          }
           this.tt.push(data[i][0])
           this.ss.push(data[i][N-2])
           this.vv.push(data[i][N-1])
@@ -122,6 +138,7 @@ export default {
         // data.concat(res.data.state.sx)
         }
         // console.log(this.xx, this.tt)
+        console.log(this.currentPos)
         if (data.length)
           this.content += lines
           // this.content += '\n' + data.join(',')
@@ -169,6 +186,7 @@ export default {
           this.is_running = true
           if (!this.is_querying)
             this.startFetching()
+          this.txtHistory += "move 3,4\n"
       });
     },
     addPath(){
@@ -189,6 +207,7 @@ export default {
           this.is_running = true
           if (!this.is_querying)
             this.startFetching()
+          this.txtHistory += this.zmovePosStr + "\n"
       });
     },
     moveStop() {
@@ -196,6 +215,28 @@ export default {
             params: {}
         }).then((res) => {
         // this.stopQuerying()
+        this.txtHistory += "stop\n"
+      });
+    },
+    movePause() {
+      axios.post(`/zmot/api/pause`, {
+            params: {}
+        }).then((res) => {
+        this.txtHistory += "pause\n"
+      });
+    },
+    moveResume() {
+      axios.post(`/zmot/api/resume`, {
+            params: {}
+        }).then((res) => {
+        this.txtHistory += "resume\n"
+      });
+    },
+    moveClear() {
+      axios.post(`/zmot/api/clear`, {
+            params: {}
+        }).then((res) => {
+        this.txtHistory += "clear\n"
       });
     },
     resetMq() {
@@ -204,6 +245,7 @@ export default {
         }).then((res) => {
         this.stopQuerying()
         this.is_running = false
+        this.currentPos = [0,0]
       });
     },
     initChart() {
@@ -233,6 +275,17 @@ export default {
           text: 'ROC'
         },
         tooltip: {},
+        legend: {
+          data:['xpos','ypos','spos', 'vel']
+        },
+        toolbox:{
+          show:true,
+          feature:{
+              dataZoom:{
+                  // yAxisIndex: "none"
+              }
+          }
+        },
         xAxis: {
           data: this.tt
         },
@@ -254,7 +307,7 @@ export default {
           data: this.ss
         },
         {
-          name: 'vpos',
+          name: 'vel',
           type: 'line',
           data: this.vv
         }]
@@ -273,7 +326,12 @@ export default {
 }
 .content{
   position: relative;
-  width: 60%;
+  width: 40%;
+  height: 500px;
+}
+.txtHistory{
+  position: relative;
+  width: 40%;
   height: 500px;
 }
 </style>
