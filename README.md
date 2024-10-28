@@ -43,4 +43,17 @@ npm i less
 set FLASK_APP=app.py
 
 flask db init && flask db migrate && flask db upgrade
+flask run
 ```
+
+## misc
+
+### reference
+
+
+参考项目 
+
+https://github.com/oleg-agapov/flask-vue-spa
+
+https://github.com/Ailln/vue-flask-template
+
