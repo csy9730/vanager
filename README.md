@@ -38,12 +38,8 @@ npm i mockjs axios axios-mock-adapter
 npm i less
 ```
 
-```
-
-set FLASK_APP=app.py
-
-flask db init && flask db migrate && flask db upgrade
-flask run
+``` bash
+python app.py --init-db
 ```
 
 ## misc
