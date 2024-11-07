@@ -26,8 +26,12 @@ pnpm-debug.log*
 __pycached__/
 tmp/
 bak/
+logs/
+dist/
+build/
 *.sqlite
 migrations/
 package-lock.json
 vanager.ini
 vanager*.log
+*.bak
