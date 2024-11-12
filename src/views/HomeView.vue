@@ -4,7 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About </router-link> |
       <router-link to="/chart">Chart </router-link> |
-      <router-link to="/longquery">LongQuery </router-link> |
+      <router-link to="/runlog">RunLog </router-link> |
       <router-link to="/zmcquery">ZmcQuery </router-link> |
       <router-link to="/zmot">ZmotQuery </router-link> |
       <router-link to="/todo">Todo </router-link>

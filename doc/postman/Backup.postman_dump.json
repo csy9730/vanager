@@ -1,0 +1,621 @@
+{
+	"version": 1,
+	"collections": [
+		{
+			"id": "586ebb54-fd6c-4f85-ba63-dbc07801e5cf",
+			"name": "vanager",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"variables": [],
+			"order": [
+				"5b57a250-a9b5-4515-ae29-f7b96554574f",
+				"0887f0b3-0283-489e-8e60-d1951d77b3f9",
+				"294435d3-09da-4881-86ae-f31bf04bfb2e",
+				"67f26d8d-d7a8-4006-ac54-b3b34275a188",
+				"45fce2b1-5738-4700-8764-117a5c2e0550",
+				"9d5d205f-c765-4041-96ed-477713007c28",
+				"5f717cfc-36fe-4a3a-a3c2-7e74fc7b5925"
+			],
+			"folders_order": [],
+			"protocolProfileBehavior": {},
+			"folders": [],
+			"requests": [
+				{
+					"id": "0887f0b3-0283-489e-8e60-d1951d77b3f9",
+					"name": "stop",
+					"url": "localhost:5000/runlog/api/3/stop",
+					"description": "",
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"method": "PUT",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "586ebb54-fd6c-4f85-ba63-dbc07801e5cf",
+					"rawModeData": "{}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "294435d3-09da-4881-86ae-f31bf04bfb2e",
+					"name": "is_running",
+					"url": "localhost:5000/runlog/api/1/is_running",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "586ebb54-fd6c-4f85-ba63-dbc07801e5cf",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "45fce2b1-5738-4700-8764-117a5c2e0550",
+					"name": "data 2",
+					"url": "localhost:5000/runlog/api/data?encoding=gbk&id=51",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "encoding",
+							"value": "gbk",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						},
+						{
+							"key": "id",
+							"value": "51",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "586ebb54-fd6c-4f85-ba63-dbc07801e5cf",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "5b57a250-a9b5-4515-ae29-f7b96554574f",
+					"name": "start",
+					"url": "localhost:5000/runlog/api/start",
+					"description": "",
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": "",
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "586ebb54-fd6c-4f85-ba63-dbc07801e5cf",
+					"rawModeData": "{\n\t\"cmds\": \"ping localhost -n 20\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "5f717cfc-36fe-4a3a-a3c2-7e74fc7b5925",
+					"name": "start 2",
+					"url": "localhost:5000/runlog/api/start",
+					"description": "",
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": "",
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "586ebb54-fd6c-4f85-ba63-dbc07801e5cf",
+					"rawModeData": "{\n\t\"cmds\": \"echo abc\",\n    \"shell\": true\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "67f26d8d-d7a8-4006-ac54-b3b34275a188",
+					"name": "data",
+					"url": "localhost:5000/runlog/api/3/data?encoding=gbk",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "encoding",
+							"value": "gbk",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "586ebb54-fd6c-4f85-ba63-dbc07801e5cf",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "9d5d205f-c765-4041-96ed-477713007c28",
+					"name": "list_id",
+					"url": "localhost:5000/runlog/api/list_id?id=6",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "id",
+							"value": "6",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "586ebb54-fd6c-4f85-ba63-dbc07801e5cf",
+					"headers": "",
+					"pathVariables": {}
+				}
+			]
+		},
+		{
+			"id": "695dc7d9-051e-454c-b4f8-5f2bc63f1748",
+			"name": "zalaiBleloc",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"variables": [],
+			"order": [
+				"4730c2a8-37e4-492f-a0a3-d1a84e33b3a4",
+				"13cd3a34-b7c1-4a88-8d1e-77e8a19c2e76",
+				"c1b21d86-d1a9-4c1b-9dd2-b6c43a5d5f4d",
+				"86d13253-f9c6-4855-ad7e-315c9a2a11f3",
+				"be9247ff-7557-422b-8640-6660cc578a27",
+				"77f8bbb5-03d8-4d0c-8e3b-7b0d83080ede",
+				"9e6938a7-25de-4fce-a209-bef6d83050c8",
+				"7b646e9f-5f76-4aa6-8936-0191a39ff8ec",
+				"7ae4c4d9-cd21-480a-aa64-11997b9af570",
+				"1f3408fe-5869-4c87-bdd7-f4ae8e871e78"
+			],
+			"folders_order": [],
+			"folders": [],
+			"requests": [
+				{
+					"id": "13cd3a34-b7c1-4a88-8d1e-77e8a19c2e76",
+					"name": "start",
+					"url": "localhost:5000/bleloc/api/start",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"description": "",
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"type": "text",
+							"value": "application/json"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "695dc7d9-051e-454c-b4f8-5f2bc63f1748",
+					"rawModeData": "{\n\t\"cmds\": \"ping localhost -n 20\"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "1f3408fe-5869-4c87-bdd7-f4ae8e871e78",
+					"name": "config",
+					"url": "localhost:5000/bleloc/api/config",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "695dc7d9-051e-454c-b4f8-5f2bc63f1748",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "4730c2a8-37e4-492f-a0a3-d1a84e33b3a4",
+					"name": "hello",
+					"url": "localhost:5000/",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"responses": [
+						{
+							"id": "d7044fac-980b-4086-87cf-168d075cce21",
+							"name": "hello",
+							"status": null,
+							"mime": null,
+							"language": "html",
+							"text": "index.html",
+							"responseCode": {
+								"code": 200,
+								"name": "OK"
+							},
+							"requestObject": {
+								"data": null,
+								"dataMode": null,
+								"headerData": [],
+								"method": "GET",
+								"pathVariableData": [],
+								"queryParams": [],
+								"url": "localhost:5000/"
+							},
+							"headers": [
+								{
+									"key": "Server",
+									"value": "Werkzeug/3.0.4 Python/3.12.2"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Oct 2024 02:54:17 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "10"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookies": null,
+							"request": "4730c2a8-37e4-492f-a0a3-d1a84e33b3a4",
+							"collection": "695dc7d9-051e-454c-b4f8-5f2bc63f1748"
+						}
+					],
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "695dc7d9-051e-454c-b4f8-5f2bc63f1748",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "77f8bbb5-03d8-4d0c-8e3b-7b0d83080ede",
+					"name": "readlines",
+					"url": "localhost:5000/bleloc/api/stdout/readlines",
+					"description": "",
+					"data": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "695dc7d9-051e-454c-b4f8-5f2bc63f1748",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "7ae4c4d9-cd21-480a-aa64-11997b9af570",
+					"name": "is_running recent",
+					"url": "localhost:5123/bleloc/api/recent/is_running",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "695dc7d9-051e-454c-b4f8-5f2bc63f1748",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "7b646e9f-5f76-4aa6-8936-0191a39ff8ec",
+					"name": "start bleloc train",
+					"url": "localhost:5000/bleloc/api/start",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "695dc7d9-051e-454c-b4f8-5f2bc63f1748",
+					"rawModeData": "{\n\t\"cmds\": \"python nn/train_ble_loc.py train -i abc \"\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "86d13253-f9c6-4855-ad7e-315c9a2a11f3",
+					"name": "is_running",
+					"url": "localhost:5000/bleloc/api/1/is_running",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "695dc7d9-051e-454c-b4f8-5f2bc63f1748",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "9e6938a7-25de-4fce-a209-bef6d83050c8",
+					"name": "start tmpl",
+					"url": "localhost:5000/bleloc/api/start",
+					"description": "",
+					"data": [],
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"method": "POST",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "695dc7d9-051e-454c-b4f8-5f2bc63f1748",
+					"rawModeData": "{\n\t\"cmds\": \"ping localhost -n 10\",\n\t\"cmdTmpl\": \"ping localhost -n {{n}}\",\n\t\"n\": 20,\n\t\"useCmdTmpl\": true\n}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "be9247ff-7557-422b-8640-6660cc578a27",
+					"name": "stop",
+					"url": "localhost:5000/bleloc/api/3/stop",
+					"description": "",
+					"data": [],
+					"dataOptions": null,
+					"dataMode": "raw",
+					"headerData": [
+						{
+							"key": "Content-Type",
+							"name": "Content-Type",
+							"value": "application/json",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"method": "PUT",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "695dc7d9-051e-454c-b4f8-5f2bc63f1748",
+					"rawModeData": "{}",
+					"headers": "Content-Type: application/json\n",
+					"pathVariables": {}
+				},
+				{
+					"id": "c1b21d86-d1a9-4c1b-9dd2-b6c43a5d5f4d",
+					"name": "data",
+					"url": "localhost:5000/bleloc/api/3/data?encoding=gbk",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [
+						{
+							"key": "encoding",
+							"value": "gbk",
+							"equals": true,
+							"description": "",
+							"enabled": true
+						}
+					],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "695dc7d9-051e-454c-b4f8-5f2bc63f1748",
+					"headers": "",
+					"pathVariables": {}
+				}
+			]
+		},
+		{
+			"id": "b716ae84-1938-48a4-a942-c447c8088b0f",
+			"name": "zmc",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"variables": [],
+			"order": [
+				"6cb40c9a-b202-459d-8191-9dda819e3691",
+				"136886e2-d506-45d0-a0b5-dcfd03d33624"
+			],
+			"folders_order": [],
+			"protocolProfileBehavior": {},
+			"folders": [],
+			"requests": [
+				{
+					"id": "136886e2-d506-45d0-a0b5-dcfd03d33624",
+					"name": "222",
+					"url": "",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "b716ae84-1938-48a4-a942-c447c8088b0f",
+					"headers": "",
+					"pathVariables": {}
+				},
+				{
+					"id": "6cb40c9a-b202-459d-8191-9dda819e3691",
+					"name": "111",
+					"url": "",
+					"description": "",
+					"data": null,
+					"dataOptions": null,
+					"dataMode": null,
+					"headerData": [],
+					"method": "GET",
+					"pathVariableData": [],
+					"queryParams": [],
+					"auth": null,
+					"events": [],
+					"folder": null,
+					"currentHelper": null,
+					"helperAttributes": null,
+					"collectionId": "b716ae84-1938-48a4-a942-c447c8088b0f",
+					"headers": "",
+					"pathVariables": {}
+				}
+			]
+		}
+	],
+	"environments": [
+		{
+			"id": "928675bb-d664-4ca5-a3cf-2a38399e4b95",
+			"name": "My Workspace - globals",
+			"values": []
+		}
+	],
+	"headerPresets": [],
+	"globals": []
+}

@@ -34,6 +34,11 @@ const routes = [
     component: () => import('../views/LongQueryView2.vue')
   },
   {
+    path: '/runlog',
+    name: 'runlog',
+    component: () => import('../views/RunlogQueryView.vue')
+  },  
+  {
     path: '/zmcquery',
     name: 'zmcquery',
     component: () => import('../views/ZmcQueryView.vue')
